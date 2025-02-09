@@ -1,0 +1,4 @@
+food_id,pet_type,last_health_check,vaccine_count,extra_info
+12345678,นกฟินิกซ์,12/02/2025,3,True
+23456789,มังกร,05/01/2025,5,
+34567890,นกฮูก,28/12/2024,2,
