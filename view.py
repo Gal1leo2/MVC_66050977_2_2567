@@ -1,51 +1,51 @@
 class PetView:
     @staticmethod
-    def display_success(message):
-        print(f"✅ {message}")
+    def get_extra_info(pet_type):
+        """ขอข้อมูลพิเศษของสัตว์ตามประเภท"""
+        if pet_type == "นกฟินิกซ์":
+            return PetView.get_phoenix_info()
+        elif pet_type == "มังกร":
+            return PetView.get_dragon_info()
+        elif pet_type == "นกฮูก":
+            return PetView.get_owl_info()
+        return None
+
+    @staticmethod
+    def get_phoenix_info():
+        """ขอข้อมูลพิเศษสำหรับนกฟินิกซ์"""
+        return input("🔥 สัตว์มีใบรับรองไฟไม่ลามหรือไม่? (true/false): ").strip().lower() == "true"
+
+    @staticmethod
+    def get_dragon_info():
+        """ขอข้อมูลพิเศษสำหรับมังกร"""
+        try:
+            return int(input("🌫️ ระดับมลพิษที่เกิดจากควัน (%): ").strip())
+        except ValueError:
+            return None
+
+    @staticmethod
+    def get_owl_info():
+        """ขอข้อมูลพิเศษสำหรับนกฮูก"""
+        try:
+            return int(input("🛫 ระยะทางบินได้โดยไม่ทานข้าว (km): ").strip())
+        except ValueError:
+            return None
 
     @staticmethod
     def display_error(message):
-        print(f"❌ {message}")
+        """แสดงข้อความข้อผิดพลาด"""
+        print(message)
 
     @staticmethod
-    def display_pet_list(pets):
-        """แสดงรายการสัตว์ทั้งหมด"""
-        print("\n📋 รายการสัตว์ทั้งหมด 📋")
-        for pet in pets:
-            pet_type = pet["pet_type"]
-            if pet_type == "นกฟินิกซ์":
-                PetView.display_phoenix(pet)
-            elif pet_type == "มังกร":
-                PetView.display_dragon(pet)
-            elif pet_type == "นกฮูก":
-                PetView.display_owl(pet)
+    def display_success(message):
+        """แสดงข้อความความสำเร็จ"""
+        print(message)
 
     @staticmethod
-    def display_phoenix(pet):
-        """แสดงข้อมูลนกฟินิกซ์"""
-        print("\n🔥 นกฟินิกซ์ 🔥")
-        print(f"🐦 รหัสอาหาร: {pet['food_id']}")
-        print(f"📅 วันที่ตรวจสุขภาพ: {pet['last_health_check']}")
-        print(f"💉 จำนวนวัคซีน: {pet['vaccine_count']}")
-        print(f"🔥 ใบรับรองไฟไม่ลาม: {'✅ มี' if pet['extra_info'] == 'True' else '❌ ไม่มี'}")
-        print("-" * 30)
-
-    @staticmethod
-    def display_dragon(pet):
-        """แสดงข้อมูลมังกร"""
-        print("\n🐉 มังกร 🐉")
-        print(f"🐲 รหัสอาหาร: {pet['food_id']}")
-        print(f"📅 วันที่ตรวจสุขภาพ: {pet['last_health_check']}")
-        print(f"💉 จำนวนวัคซีน: {pet['vaccine_count']}")
-        print(f"🌫️ ระดับมลพิษจากควัน: {pet['extra_info']}%")
-        print("-" * 30)
-
-    @staticmethod
-    def display_owl(pet):
-        """แสดงข้อมูลนกฮูก"""
-        print("\n🦉 นกฮูก 🦉")
-        print(f"🦉 รหัสอาหาร: {pet['food_id']}")
-        print(f"📅 วันที่ตรวจสุขภาพ: {pet['last_health_check']}")
-        print(f"💉 จำนวนวัคซีน: {pet['vaccine_count']}")
-        print(f"🛫 ระยะทางบินได้โดยไม่ทานข้าว: {pet['extra_info']} km")
-        print("-" * 30)
+    def display_summary(accepted, rejected):
+        """แสดงรายงานสรุป"""
+        print("📊 รายงานสรุป")
+        print(f"✅ สัตว์ที่รับเข้า: {sum(accepted.values())}")
+        print(f"❌ สัตว์ที่ถูกปฏิเสธ: {sum(rejected.values())}")
+        for pet_type in accepted:
+            print(f"{pet_type}: รับเข้า {accepted[pet_type]} / ปฏิเสธ {rejected[pet_type]}")
